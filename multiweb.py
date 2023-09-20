@@ -27,7 +27,37 @@ class main_class():
         datalist = []
         for url in urls:
 
-            webbrowser.open(url)
+
+            site = requests.get(url)
+            data = BeautifulSoup(site.text, 'html.parser')
+            textExample.insert(tkinter.END,data.find_all("p"))
+
+            SAMPLE_DIR = "C:\\html_link"
+ 
+            if not os.path.exists(SAMPLE_DIR):
+            # ディレクトリが存在しない場合、ディレクトリを作成する
+                os.makedirs(SAMPLE_DIR)       
+
+            web_site=SAMPLE_DIR+"\\scraping_result.html"
+            f = open(web_site, 'w',encoding='utf-8', errors='ignore')
+            message = str(data)
+
+
+
+            datalist.append('<html>\n')
+            datalist.append('<head>\n')
+            datalist.append('<title>from python</title>\n')
+            datalist.append('</head>\n')
+            datalist.append('<body>\n')
+            datalist.append(message)
+            datalist.append('\n')
+            datalist.append('</body>\n')
+            datalist.append('</html>\n')
+
+        f.writelines(datalist)
+
+        f.close()
+        webbrowser.open(web_site)
 
        
       
@@ -48,7 +78,7 @@ root = tkinter.Tk()
 # 画面サイズ
 root.geometry('700x600')
 # 画面タイトル
-root.title('複数WEB表示')
+root.title('スクレいピング')
 
 
 textExample=ScrolledText(root, height=40,wrap=tkinter.CHAR)

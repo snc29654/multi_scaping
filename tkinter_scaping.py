@@ -32,7 +32,7 @@ class main_class():
             data = BeautifulSoup(site.text, 'html.parser')
             textExample.insert(tkinter.END,data.find_all("p"))
 
-            SAMPLE_DIR = "../"
+            SAMPLE_DIR = "C:\\html_link"
  
             if not os.path.exists(SAMPLE_DIR):
             # ディレクトリが存在しない場合、ディレクトリを作成する
