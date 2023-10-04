@@ -7,12 +7,51 @@ import sys
 from tkinter.scrolledtext import ScrolledText
 
 
+# リストボックスに項目追加
+urls = [
+    "https://news.yahoo.co.jp/categories/domestic",
+    "https://news.yahoo.co.jp/categories/sports",
+    "https://news.yahoo.co.jp/categories/entertainment", 
+    "https://news.yahoo.co.jp/categories/business", 
+    "https://news.yahoo.co.jp/categories/it", 
+    "https://news.yahoo.co.jp/categories/world", 
+    "https://news.yahoo.co.jp/categories/science", 
+    "https://news.yahoo.co.jp/topics/top-picks"
+]
 
   
   
 class main_class():  
     def __init__(self):
         # ボタン
+
+        root = tkinter.Tk()
+        # 画面サイズ
+        root.geometry('700x600')
+        # 画面タイトル
+        root.title('スクレいピング')
+
+
+        self.textExample=ScrolledText(root, height=40,wrap=tkinter.CHAR)
+        self.textExample.pack()
+        self.textExample.place(x=90, y=40)
+
+
+        # ラベル
+        lbl = tkinter.Label(text='')
+        lbl.place(x=10, y=10)
+        lbl2 = tkinter.Label(text='結果')
+        lbl2.place(x=10, y=50)
+
+
+
+
+
+
+
+
+
+
         btn = tkinter.Button(root, text='実行', command=self.btn_click)
         btn.place(x=10, y=80)
 
@@ -20,7 +59,12 @@ class main_class():
         btn6.place(x=10, y=570)
 
   
-  
+
+        root.mainloop()
+
+
+
+
     def  data_print(self):
         import requests
         message=[]
@@ -30,7 +74,7 @@ class main_class():
 
             site = requests.get(url)
             data = BeautifulSoup(site.text, 'html.parser')
-            textExample.insert(tkinter.END,data.find_all("p"))
+            self.textExample.insert(tkinter.END,data.find_all("p"))
 
             SAMPLE_DIR = "../"
  
@@ -63,50 +107,15 @@ class main_class():
       
 # clickイベント
     def btn_click(self):
-        textExample.delete("1.0",tkinter.END)
+        self.textExample.delete("1.0",tkinter.END)
         self.data_print()
     
     def btn_click6(self):
     
-        textExample.delete("1.0",tkinter.END)
+        self.textExample.delete("1.0",tkinter.END)
 
 
-
-
-
-root = tkinter.Tk()
-# 画面サイズ
-root.geometry('700x600')
-# 画面タイトル
-root.title('スクレいピング')
-
-
-textExample=ScrolledText(root, height=40,wrap=tkinter.CHAR)
-textExample.pack()
-textExample.place(x=90, y=40)
-
-
-# ラベル
-lbl = tkinter.Label(text='')
-lbl.place(x=10, y=10)
-lbl2 = tkinter.Label(text='結果')
-lbl2.place(x=10, y=50)
-
-
-
-
-# リストボックスに項目追加
-urls = [
-    "https://news.yahoo.co.jp/categories/domestic",
-    "https://news.yahoo.co.jp/categories/sports",
-    "https://news.yahoo.co.jp/categories/entertainment", 
-    "https://news.yahoo.co.jp/categories/business", 
-    "https://news.yahoo.co.jp/categories/it", 
-    "https://news.yahoo.co.jp/categories/world", 
-    "https://news.yahoo.co.jp/categories/science", 
-    "https://news.yahoo.co.jp/topics/top-picks"
-]
 
 c=main_class()  
 
-root.mainloop()
+
